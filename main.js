@@ -3,12 +3,11 @@ const nameList = document.getElementById('name-list')
 const display = document.getElementById('display')
 const shuffle = document.getElementById('shuffle')
 const firstPosition = document.getElementById('first-position')
-const secondPosition = document.getElementById('second-position')
-const thirdPosition = document.getElementById('third-position')
 const reset = document.getElementById('reset')
 const inputFile = document.getElementById('input-file')
 const checkbox = document.getElementById('checkbox')
 const ready = document.getElementById('ready')
+// const modal = document.getElementById('myModal')
 
 let participantNames = []
 
@@ -39,34 +38,13 @@ shuffle.addEventListener('click', function (event) {
                     display.innerHTML = suffledNames[rand]
 
                     if (count === suffledNames.length - 1) {
-                        if (!firstPosition.innerHTML) {
-                            firstPosition.innerHTML = suffledNames[rand]
-                            if (checkbox.checked == true) {
-                                let index = participantNames.indexOf(suffledNames[rand])
-                                participantNames.splice(index, 1)
-                            }
-                            console.log(participantNames)
-                            winnerAlert(suffledNames[rand])
-                        } else if (!secondPosition.innerHTML) {
-                            secondPosition.innerHTML = suffledNames[rand]
-
-                            if (checkbox.checked == true) {
-                                let index = participantNames.indexOf(suffledNames[rand])
-                                participantNames.splice(index, 1)
-                            }
-                            console.log(participantNames)
-                            winnerAlert(suffledNames[rand])
-                        } else {
-                            thirdPosition.innerHTML = suffledNames[rand]
-
-                            if (checkbox.checked == true) {
-                                let index = participantNames.indexOf(suffledNames[rand])
-                                participantNames.splice(index, 1)
-                            }
-                            console.log(participantNames)
-                            shuffle.setAttribute("disabled", true);
-                            winnerAlert(suffledNames[rand])
+                        firstPosition.innerHTML = suffledNames[rand]
+                        if (checkbox.checked == true) {
+                            let index = participantNames.indexOf(suffledNames[rand])
+                            participantNames.splice(index, 1)
                         }
+                        console.log(participantNames)
+                        winnerAlert(suffledNames[rand])
                     }
                 }, i)
             })(i * 100, i)
@@ -97,8 +75,6 @@ reset.addEventListener('click', function (event) {
     inputFile.value = ''
     display.innerHTML = 'Display'
     firstPosition.innerHTML = ''
-    secondPosition.innerHTML = ''
-    thirdPosition.innerHTML = ''
     shuffle.removeAttribute("disabled");
     ready.removeAttribute('disabled')
     input.removeAttribute('disabled')
@@ -120,12 +96,5 @@ function shuffleArray(array) {
 }
 
 function winnerAlert(name) {
-    Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Congratulations',
-        text: `'${name}'`,
-        showConfirmButton: true,
-        timer: 3000
-    })
+    $("#myModal").modal()
 }
